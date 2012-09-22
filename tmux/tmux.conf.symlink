@@ -1,0 +1,7 @@
+# Reload tmux config file
+bind r source-file ~/.tmux.conf
+
+# C-b as the default sequence? not much better than screen =(
+set -g prefix C-z
+unbind C-b
+bind C-z send-prefix

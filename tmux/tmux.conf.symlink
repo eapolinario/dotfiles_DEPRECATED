@@ -1,12 +1,6 @@
 # Start numbering at 1
 set -g base-index 1
 
-# Set status bar
-# set -g status-bg black
-# set -g status-fg white
-# set -g status-left ""
-# set -g status-right "#[fg=green]#H"
-
 # Highlight active window
 # set-window-option -g window-status-current-bg red
 
@@ -24,17 +18,39 @@ bind-key C-z last-window
 # Aggressive resize
 setw -g aggressive-resize on
 
-# Kill current pane
-bind-key C-x kill-pane
+# Rebind close window
+bind C-x confirm kill-window
+
+# Left status bar
+set -g status-bg default
+set -g status-left-fg white
+set -g status-left-length 30
+set -g status-left '#S'
 
 # Misc
 set -g default-terminal "screen-256color"   # use 256 colors
 set -g status-utf8 on                       # enable utf-8
 set -g history-limit 100000                 # scrollback buffer n lines
 
-####
-# Left status bar
-set -g status-bg default
-set -g status-left-fg white
-set -g status-left-length 30
-set -g status-left '#S'
+# Make 
+set-window-option -g xterm-keys on
+
+# emacs mode
+# or whatever this is called
+setw -g mode-keys emacs
+
+set-window-option -g xterm-keys on
+
+# # Set bash to whichever shell you are using, zsh for example
+# set-option -g default-command "reattach-to-user-namespace -l zsh" 
+
+# # Remove the default binding for copy-selection, substitute emacs-copy with vi-copy if you're using vi-mode
+# unbind -t emacs-copy M-w
+
+# # Bind a different key to copy-selection
+# bind -t emacs-copy c copy-selection
+
+# # Bind prefix-M-w to copy-selection, save selection to buffer, and then pipe it's contents to pbcopy
+# bind M-w send-keys c\;\
+#          save-buffer /tmp/tmux-buffer\;\
+#          run-shell "reattach-to-user-namespace -l zsh -c 'cat /tmp/tmux-buffer|pbcopy'"

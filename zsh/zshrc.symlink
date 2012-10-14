@@ -21,4 +21,4 @@ compinit
 # load every completion after autocomplete loads
 for config_file ($ZSH/**/completion.zsh) source $config_file
 
-eval "$(rbenv init -)"
+# eval "$(rbenv init -)"

@@ -1,9 +1,9 @@
-# holman does dotfiles
+# eduardo does dotfiles
 
 ## dotfiles
 
 Your dotfiles are how you personalize your system. These are mine. The very
-prejudiced mix: OS X, zsh, Ruby, Rails, git, homebrew, rbenv, vim. If you
+prejudiced mix: OS X, zsh, git, homebrew, emacs. If you
 match up along most of those lines, you may dig my dotfiles.
 
 I was a little tired of having long alias files and everything strewn about
@@ -13,7 +13,7 @@ up into the main areas I used (Ruby, git, system libraries, and so on), so I
 structured the project accordingly.
 
 If you're interested in the philosophy behind why projects like these are
-awesome, you might want to [read my post on the
+awesome, you might want to [read this post on the
 subject](http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/).
 
 ## install
@@ -33,7 +33,7 @@ The main file you'll want to change right off the bat is `zsh/zshrc.symlink`,
 which sets up a few paths that'll be different on your particular machine.
 
 You'll also want to change `git/gitconfig.symlink`, which will set you up as
-committing as Zach Holman. You probably don't want that.
+committing as Eduardo Apolinario. You probably don't want that.
 
 ## topical
 
@@ -94,3 +94,9 @@ weight of my changes and tweaks inspired me to finally roll my own. But Ryan's
 dotfiles were an easy way to get into bash customization, and then to jump ship
 to zsh a bit later. A decent amount of the code in these dotfiles stem or are
 inspired from Ryan's original project.
+
+## Notes by Eduardo
+
+I forked [Zach Holman](http://github.com/holman)' awesome
+[dotfiles](http://github.com/holman/dotfiles) after years fighting the urge of
+having a better way of handling dotfiles.

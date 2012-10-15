@@ -18,7 +18,25 @@
 (global-set-key (kbd "C-x <right>") 'windmove-right)
 (global-set-key (kbd "C-x <left>") 'windmove-left)
 
+;; Buffer move
+(require 'buffer-move)
+(global-set-key (kbd "<C-S-up>")     'buf-move-up)
+(global-set-key (kbd "<C-S-down>")   'buf-move-down)
+(global-set-key (kbd "<C-S-left>")   'buf-move-left)
+(global-set-key (kbd "<C-S-right>")  'buf-move-right)
+
+;; smart-forward
+;; TODO - not working
+(require 'smart-forward)
+(global-set-key (kbd "M-<up>") 'smart-up)
+(global-set-key (kbd "M-<down>") 'smart-down)
+(global-set-key (kbd "M-<left>") 'smart-backward)
+(global-set-key (kbd "M-<right>") 'smart-forward)
+
+
 ;; "cat -vt" is your friend
 (define-key input-decode-map "\e[1;3C" [(meta right)])
 (define-key input-decode-map "\e[1;3D" [(meta left)])
 
+(custom-set-variables
+'(haskell-mode-hook '(turn-on-haskell-indentation)))

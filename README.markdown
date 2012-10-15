@@ -1,4 +1,4 @@
-# eduardo does dotfiles
+# eduardo's dotfiles
 
 ## dotfiles
 

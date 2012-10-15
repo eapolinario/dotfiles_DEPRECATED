@@ -19,7 +19,7 @@
         diff = auto
         status = auto
         branch = auto
-        ui = true
+	ui = true
 [core]
         excludesfile = ~/.gitignore
         editor = emacs

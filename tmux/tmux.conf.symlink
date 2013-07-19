@@ -60,22 +60,6 @@ set -g mouse-resize-pane on
 set -g mouse-select-pane on
 set -g mouse-select-window on
 
-# # Toggle mouse on with ^B m
-# bind m \
-#   set -g mode-mouse on \;\
-#   set -g mouse-resize-pane on \;\
-#   set -g mouse-select-pane on \;\
-#   set -g mouse-select-window on \;\
-#   display 'Mouse: ON'
-
-# # Toggle mouse off with ^B M
-# bind M \
-#   set -g mode-mouse off \;\
-#   set -g mouse-resize-pane off \;\
-#   set -g mouse-select-pane off \;\
-#   set -g mouse-select-window off \;\
-#   display 'Mouse: OFF'
-
 # Misc
 set -g default-terminal "screen-256color"   # use 256 colors
 set -g status-utf8 on                       # enable utf-8

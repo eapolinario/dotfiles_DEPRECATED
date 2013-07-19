@@ -4,13 +4,13 @@ set -g base-index 1
 # Reload tmux config file
 bind r source-file ~/.tmux.conf
 
-# C-z as the default prefix
-set -g prefix C-z
+# C-u as the default prefix
+set -g prefix C-u
 unbind C-b
-bind C-z send-prefix
+bind C-u send-prefix
 
 # Go to last window
-bind-key C-z last-window
+bind-key C-u last-window
 
 # Aggressive resize
 setw -g aggressive-resize on
@@ -18,6 +18,11 @@ set-window-option -g aggressive-resize on
 
 # Rebind close window
 bind C-x confirm kill-window
+
+# # Rebinding the pane splitting bindings
+# unbind % # Remove default bindings since we're replacing
+bind | split-window -h
+bind - split-window -v
 
 ## Works well with dark solarized
 # default statusbar colors
@@ -48,6 +53,28 @@ set-option -g display-panes-colour colour166 #orange
 # clock
 set-window-option -g clock-mode-colour colour64 #green
 ##
+
+# Better mouse support
+set -g mode-mouse on
+set -g mouse-resize-pane on
+set -g mouse-select-pane on
+set -g mouse-select-window on
+
+# # Toggle mouse on with ^B m
+# bind m \
+#   set -g mode-mouse on \;\
+#   set -g mouse-resize-pane on \;\
+#   set -g mouse-select-pane on \;\
+#   set -g mouse-select-window on \;\
+#   display 'Mouse: ON'
+
+# # Toggle mouse off with ^B M
+# bind M \
+#   set -g mode-mouse off \;\
+#   set -g mouse-resize-pane off \;\
+#   set -g mouse-select-pane off \;\
+#   set -g mouse-select-window off \;\
+#   display 'Mouse: OFF'
 
 # Misc
 set -g default-terminal "screen-256color"   # use 256 colors

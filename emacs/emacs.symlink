@@ -1,11 +1,17 @@
 (require 'package)
 (package-initialize)
-
 (add-to-list 'package-archives
 '("melpa" . "http://melpa.milkbox.net/packages/") t)
-
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
+
+;; enable ido
+(ido-mode 1)
+
+;; CEDET ?
+(require 'cedet)
+(semantic-mode 1)
+(require 'semantic)
 
 ;; God knows what the hell this does
 (if window-system
@@ -18,25 +24,74 @@
 (global-set-key (kbd "C-x <right>") 'windmove-right)
 (global-set-key (kbd "C-x <left>") 'windmove-left)
 
-;; Buffer move
-(require 'buffer-move)
-(global-set-key (kbd "<C-S-up>")     'buf-move-up)
-(global-set-key (kbd "<C-S-down>")   'buf-move-down)
-(global-set-key (kbd "<C-S-left>")   'buf-move-left)
-(global-set-key (kbd "<C-S-right>")  'buf-move-right)
-
-;; smart-forward
-;; TODO - not working
-(require 'smart-forward)
-(global-set-key (kbd "M-<up>") 'smart-up)
-(global-set-key (kbd "M-<down>") 'smart-down)
-(global-set-key (kbd "M-<left>") 'smart-backward)
-(global-set-key (kbd "M-<right>") 'smart-forward)
-
+;; Enable forward/backward word on OSX
+(global-set-key '[(meta right)] 'forward-word)
+(global-set-key '[(meta left)] 'backward-word)
 
 ;; "cat -vt" is your friend
-(define-key input-decode-map "\e[1;3C" [(meta right)])
-(define-key input-decode-map "\e[1;3D" [(meta left)])
+;; (define-key input-decode-map "\e[1;3C" [(meta right)])
+;; (define-key input-decode-map "\e[1;3D" [(meta left)])
 
 (custom-set-variables
-'(haskell-mode-hook '(turn-on-haskell-indentation)))
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
+ '(custom-enabled-themes (quote (misterioso)))
+ '(custom-safe-themes (quote ("246a51f19b632c27d7071877ea99805d4f8131b0ff7acb8a607d4fd1c101e163" "1f31a5f247d0524ef9c051d45f72bae6045b4187ed7578a7b1f8cb8758f92b60" "06f5145c01ec774a0abb49eeffa3980743ce2f997112b537effeb188b7c51caf" default)))
+ '(fci-rule-color "#383838")
+ '(haskell-mode-hook (quote (turn-on-haskell-indentation))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;; Enable debug messages (*Messages* buffer)
+(setq debug-on-error t)
+
+;; Auto-complete stuff
+;; (require 'auto-complete-config)
+;; (ac-config-default)
+;; (add-hook 'c++-mode (lambda () (add-to-list 'ac-sources 'ac-source-semantic)))
+
+;; Minimalism
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+
+;; "y or n" instead of "yes or no"
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; Display line and column numbers
+(setq line-number-mode t)
+(setq column-number-mode t)
+
+;; Hihglight regions and add special behaviors to regions.
+;; "C-h d transient" for more info
+(setq transient-mark-mode t)
+
+;; Make sure all backup files only live in one place
+(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+
+;; Matching parens
+(show-paren-mode t)
+
+;; Trailing whitespace is unnecessary
+(add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
+
+;; For emacsclient
+(server-start)
+
+;; Expand-region
+(require 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
+
+;; Company mode - autocomplete made easy on Emacs
+(add-hook 'after-init-hook 'global-company-mode)
+(global-set-key "\t" 'company-complete-common)
+
+;; python + emacs
+;; (require 'pymacs)
+;; (pymacs-load "ropemacs" "rope-")

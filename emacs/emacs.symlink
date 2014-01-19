@@ -90,8 +90,13 @@
 
 ;; Company mode - autocomplete made easy on Emacs
 (add-hook 'after-init-hook 'global-company-mode)
-(global-set-key "\t" 'company-complete-common)
+;; (global-set-key (kbd "C-i") 'company-complete-common)
 
 ;; python + emacs
 ;; (require 'pymacs)
 ;; (pymacs-load "ropemacs" "rope-")
+
+;; SML - Programming languages coursera
+(setenv "PATH" (concat "/usr/local/smlnj/bin:" (getenv "PATH")))
+(setq exec-path (cons "/usr/local/smlnj/bin"  exec-path))
+(global-font-lock-mode t)

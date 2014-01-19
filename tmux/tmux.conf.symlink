@@ -1,66 +1,66 @@
-# Start numbering at 1
-set -g base-index 1
+# Set prefix key
+unbind-key C-b
+set-option -g prefix C-u
 
-# Reload tmux config file
-bind r source-file ~/.tmux.conf
+# reload settings
+bind-key R source-file ~/.tmux.conf; display-message "Config reloaded..".
 
-# C-u as the default prefix
-set -g prefix C-u
-unbind C-b
-bind C-u send-prefix
+# detach client
+bind-key d detach
+bind-key C-d detach
 
-# Go to last window
+# new window
+bind-key c new-window
+
+# toggle last window like screen
 bind-key C-u last-window
 
-# Aggressive resize
-setw -g aggressive-resize on
-set-window-option -g aggressive-resize on
+# Start counting from 1
+set -g base-index 1
 
-# Rebind close window
-bind C-x confirm kill-window
-
-# # Rebinding the pane splitting bindings
-# unbind % # Remove default bindings since we're replacing
+# Pane splitting bindings
 bind | split-window -h
 bind - split-window -v
+bind T split-window -p 25
 
-## Works well with dark solarized
-# default statusbar colors
-set-option -g status-bg colour235 #base02
-set-option -g status-fg colour136 #yellow
-set-option -g status-attr default
+# window movement
+bind-key m command-prompt -p "move window to:"  "swap-window -t '%%'"
 
-# default window title colors
-set-window-option -g window-status-fg colour244 #base0
-set-window-option -g window-status-bg default
+# Formatting panes
+bind < resize-pane -L 5
+bind > resize-pane -R 5
 
-# active window title colors
-set-window-option -g window-status-current-fg colour166 #orange
-set-window-option -g window-status-current-bg default
+# Set size of history
+set -g history-limit 1000000
 
-# pane border
-set-option -g pane-border-fg colour235 #base02
-set-option -g pane-active-border-fg colour240 #base01
+# Enable scrollbar in terminal
+# set -g terminal-overrides 'xterm*:smcup@:rmcup@'
+set -g default-terminal "screen-256color"
 
-# message text
-set-option -g message-bg colour235 #base02
-set-option -g message-fg colour166 #orange
-
-# pane number display
-set-option -g display-panes-active-colour colour33 #blue
-set-option -g display-panes-colour colour166 #orange
-
-# clock
-set-window-option -g clock-mode-colour colour64 #green
-##
+#Sets the appearance of the center
+setw -g window-status-fg blue
+setw -g window-status-bg black
+setw -g window-status-current-fg white
+setw -g window-status-current-bg blue
+setw -g window-status-current-attr bright
+set -g status-left-length 50
+set -g status-left "#[fg=colour39]❐ #40S #[fg=yellow]✓ #(whoami)"
+set -g status-right "#[fg=yellow]ℹ %d %b %R"
+set -g status-bg black
+set -g status-utf8 on
+set -g status-interval 60
+set -g status-justify centre
+setw -g monitor-activity on
+set -g visual-activity on
+set -g set-titles on
+set-option -g set-titles-string '#H:#S.#I.#P #W #T' # window number,program name,active (or not)
 
 # Better mouse support
+# on iTerm2 Alt suppresses mouse-mode
 set -g mode-mouse on
 set -g mouse-resize-pane on
 set -g mouse-select-pane on
 set -g mouse-select-window on
 
-# Misc
-set -g default-terminal "screen-256color"   # use 256 colors
-set -g status-utf8 on                       # enable utf-8
-set -g history-limit 100000                 # scrollback buffer n lines
+# disable automatic window renaming
+set-window-option -g automatic-rename off

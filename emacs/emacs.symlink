@@ -8,10 +8,10 @@
 ;; enable ido
 (ido-mode 1)
 
-;; CEDET ?
-(require 'cedet)
-(semantic-mode 1)
-(require 'semantic)
+;; ;; CEDET ?
+;; (require 'cedet)
+;; (semantic-mode 1)
+;; (require 'semantic)
 
 ;; God knows what the hell this does
 (if window-system
@@ -31,23 +31,6 @@
 ;; "cat -vt" is your friend
 ;; (define-key input-decode-map "\e[1;3C" [(meta right)])
 ;; (define-key input-decode-map "\e[1;3D" [(meta left)])
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
- '(custom-enabled-themes (quote (misterioso)))
- '(custom-safe-themes (quote ("246a51f19b632c27d7071877ea99805d4f8131b0ff7acb8a607d4fd1c101e163" "1f31a5f247d0524ef9c051d45f72bae6045b4187ed7578a7b1f8cb8758f92b60" "06f5145c01ec774a0abb49eeffa3980743ce2f997112b537effeb188b7c51caf" default)))
- '(fci-rule-color "#383838")
- '(haskell-mode-hook (quote (turn-on-haskell-indentation))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 
 ;; Enable debug messages (*Messages* buffer)
 (setq debug-on-error t)
@@ -85,11 +68,11 @@
 (server-start)
 
 ;; Expand-region
-(require 'expand-region)
-(global-set-key (kbd "C-=") 'er/expand-region)
+;; (require 'expand-region)
+;; (global-set-key (kbd "C-=") 'er/expand-region)
 
 ;; Company mode - autocomplete made easy on Emacs
-(add-hook 'after-init-hook 'global-company-mode)
+;; (add-hook 'after-init-hook 'global-company-mode)
 ;; (global-set-key (kbd "C-i") 'company-complete-common)
 
 ;; python + emacs
@@ -100,3 +83,105 @@
 (setenv "PATH" (concat "/usr/local/smlnj/bin:" (getenv "PATH")))
 (setq exec-path (cons "/usr/local/smlnj/bin"  exec-path))
 (global-font-lock-mode t)
+
+;; ;; Haskell stuff
+;; ;; =============
+;; ;; Show math-y letters
+;; (setq haskell-font-lock-symbols t)
+
+;; ;; pretty-symbols
+;; ;; (setq pretty-symbol-categories '(lambda relational logical))
+
+;; ;; Unicode haskell
+;; (defun unicode-symbol (name)
+;;   "Translate a symbolic name for a Unicode character -- e.g., LEFT-ARROW
+;;   or GREATER-THAN into an actual Unicode character code. "
+;;   (decode-char 'ucs (case name
+;; 			  ;; arrows
+;; 			  ('left-arrow 8592)
+;; 			  ('up-arrow 8593)
+;; 			  ('right-arrow 8594)
+;; 			  ('down-arrow 8595)
+;; 			  ;; boxes
+;; 			  ('double-vertical-bar #X2551)
+;; 			  ;; relational operators
+;; 			  ('equal #X003d)
+;; 			  ('not-equal #X2260)
+;; 			  ('identical #X2261)
+;; 			  ('not-identical #X2262)
+;; 			  ('less-than #X003c)
+;; 			  ('greater-than #X003e)
+;; 			  ('less-than-or-equal-to #X2264)
+;; 			  ('greater-than-or-equal-to #X2265)
+;; 			  ;; logical operators
+;; 			  ('logical-and #X2227)
+;; 			  ('logical-or #X2228)
+;; 			  ('logical-neg #X00AC)
+;; 			  ;; misc
+;; 			  ('nil #X2205)
+;; 			  ('horizontal-ellipsis #X2026)
+;; 			  ('double-exclamation #X203C)
+;; 			  ('prime #X2032)
+;; 			  ('double-prime #X2033)
+;; 			  ('for-all #X2200)
+;; 			  ('there-exists #X2203)
+;; 			  ('element-of #X2208)
+;; 			  ;; mathematical operators
+;; 			  ('square-root #X221A)
+;; 			  ('squared #X00B2)
+;; 			  ('cubed #X00B3)
+;; 			  ;; letters
+;; 			  ('lambda #X03BB)
+;; 			  ('alpha #X03B1)
+;; 			  ('beta #X03B2)
+;; 			  ('gamma #X03B3)
+;; 			  ('delta #X03B4))))
+
+;; (defun substitute-pattern-with-unicode (pattern symbol)
+;;   "Add a font lock hook to replace the matched part of PATTERN with the
+;;   Unicode symbol SYMBOL looked up with UNICODE-SYMBOL."
+;;   (interactive)
+;;   (font-lock-add-keywords
+;;    nil `((,pattern (0 (progn (compose-region (match-beginning 1) (match-end 1)
+;; 					     ,(unicode-symbol symbol))
+;; 			     nil))))))
+
+;; (defun substitute-patterns-with-unicode (patterns)
+;;   "Call SUBSTITUTE-PATTERN-WITH-UNICODE repeatedly."
+;;   (mapcar #'(lambda (x)
+;; 	      (substitute-pattern-with-unicode (car x)
+;; 					       (cdr x)))
+;; 	  patterns))
+
+;; (defun haskell-unicode ()
+;; 	(interactive)
+;; 	(substitute-patterns-with-unicode
+;; 	 (list
+;;             (cons "\\s \\(<-\\)\\s " 'left-arrow)
+;;             (cons "\\s \\(->\\)\\s " 'right-arrow)
+;;             (cons "\\s \\(==\\)\\s " 'identical)
+;;             (cons "\\s \\(/=\\)\\s " 'not-identical)
+;;             (cons "\\s \\(()\\)\\(\\s \\|$\\)" 'nil)
+;;             (cons "\\<\\(sqrt\\)\\>" 'square-root)
+;;             (cons "\\s \\(&&\\)\\s " 'logical-and)
+;;             (cons "\\s \\(||\\)\\s " 'logical-or)
+;;             (cons "\\<\\(not\\)\\>" 'logical-neg)
+;;             (cons "\\s \\(>\\)\\[^=\\]" 'greater-than)
+;;             (cons "\\s \\(<\\)\\[^=\\]" 'less-than)
+;;             (cons "\\s \\(>=\\)\\s " 'greater-than-or-equal-to)
+;;             (cons "\\s \\(<=\\)\\s " 'less-than-or-equal-to)
+;;             (cons "\\<\\(alpha\\)\\>" 'alpha)
+;;             (cons "\\<\\(beta\\)\\>" 'beta)
+;;             (cons "\\<\\(gamma\\)\\>" 'gamma)
+;;             (cons "\\<\\(delta\\)\\>" 'delta)
+;;             (cons "\\s \\(''\\)\\s " 'double-prime)
+;;             (cons "\\s \\('\\)\\s " 'prime)
+;;             (cons "\\s (?\\(\\\\\\)\\s *\\(\\w\\|_\\).*?\\s *->" 'lambda)
+;;             (cons "\\s \\(!!\\)\\s " 'double-exclamation)
+;;             (cons "\\s \\(\\.\\.\\)\\s " 'horizontal-ellipsis))))
+
+;; (add-hook 'haskell-mode 'haskell-unicode)
+
+;; ;; Haskell indentation
+;; (custom-set-variables
+;;  '(haskell-mode-hook '(turn-on-haskell-simple-indent)))
